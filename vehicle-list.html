@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/icons-car.css" />
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content {
+				background-color: #efeff4;
+				color: #000;
+			}
+			
+			header {
+				background-color: #fff!important;
+			}
+			
+			header.mui-bar {
+				/*display: none;*/
+			}
+			
+			.mui-bar-nav~.mui-content {
+				padding: 0;
+			}
+			
+			.title {
+				margin: 20px;
+			}
+			
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px;
+			}
+			
+			.mui-table-view {
+				margin-bottom: 35px;
+			}
+			
+			.mui-table-view-cell {
+				font-size: 14px;
+			}
+			
+			#info {
+				line-height: 40px;
+				padding: 20px;
+				text-align: center;
+			}
+			
+			#info img {
+				vertical-align: middle;
+			}
+			
+			.mui-media-object {
+				padding: 5px;
+			}
+			
+			.mui-table-view-cell.mui-collapse .mui-collapse-content {
+				/* display: none; */
+				overflow: visible;
+				padding: 0px;
+				margin-left: -40px;
+				padding-right: 10px;
+			}
+			
+			.search input[type=search] {
+				margin-bottom: 0px;
+				font-size: 12px;
+				background-color: #fff;
+			}
+			
+			.mui-search .mui-placeholder {
+				padding-top: 3px;
+				font-size: 13px;
+			}
+			
+			.mui-search.mui-active:before {
+				margin-top: -20px;
+			}
+			
+			.mui-icon-search:before {
+				/*padding-right: 90px;*/
+			}
+			
+			.mui-ellipsis {
+				font-size: 12px;
+			}
+			
+			.mui-scroll-wrapper {
+				padding-top: 44px;
+			}
+			
+			.vehicle-list,
+			.customer,
+			.vehicle,
+			.customer-list,
+			.customer-name,
+			.vehicle-name,
+			.gpsTime,
+			.status {}
+			
+			.mui-table-view-cell.vehicle-selected {
+				background-color: #f7f7f7;
+			}
+			
+			.mui-bar .mui-input-row .mui-input-clear~.mui-icon-clear {
+				top: 4px;
+				right: 6px;
+			}
+			
+			.mui-media-body {
+				line-height: 28px;
+			}
+			
+			.mui-slider-group {
+				line-height: 0px;
+			}
+			
+			.mui-segmented-control .mui-control-item {
+				line-height: 30px;
+				font-size: 12px;
+				padding-top: 3px;
+			}
+			/*
+				 * 状态样式
+				 */
+			
+			.offline .vehicle-status,
+			.offline .vehicle-name {
+				color: #C0C0C0
+			}
+			
+			.alert .vehicle-status,
+			.alert .vehicle-name {
+				color: #CF2D28
+			}
+			
+			.run .vehicle-status,
+			.run .vehicle-name {
+				color: #008000
+			}
+			
+			.stop .vehicle-status,
+			.stop .vehicle-name {
+				color: #333333
+			}
+			/*#search {
+					width: 90%
+				}*/
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<div class="mui-input-row mui-search">
+				<input id="search" type="search" class="mui-input-clear" placeholder="搜索设备">
+				<!--<a id="add" class="mui-icon iconfont icon-tianjia1 mui-pull-right"></a>-->
+			</div>
+		</header>
+		<div class="mui-content">
+			<div id="mui-scroll-wrapper" class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<div id="slider" class="mui-slider">
+						<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+							<a class="mui-control-item" href="#item1mobile">
+								全部
+							</a>
+							<a class="mui-control-item" href="#item2mobile">
+								在线
+							</a>
+							<a class="mui-control-item" href="#item3mobile">
+								离线
+							</a>
+							<a class="mui-control-item" href="#item4mobile">
+								报警
+							</a>
+						</div>
+						<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
+						<div class="mui-slider-group">
+							<div id="item1mobile" class="mui-slider-item mui-control-content mui-active"></div>
+							<div id="item2mobile" class="mui-slider-item mui-control-content"></div>
+							<div id="item3mobile" class="mui-slider-item mui-control-content"></div>
+							<div id="item4mobile" class="mui-slider-item mui-control-content"></div>
+						</div>
+					</div>
+					<ul class="mui-table-view customer-list">
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/immersed.js"></script>
+		<script src="js/mapjs/define.js"></script>
+		<script src="js/mapjs/global.js"></script>
+		<script src="js/wistorm/define.js"></script>
+		<script src="js/wistorm/wistorm.js"></script>
+		<script src="js/wistorm/md5.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				keyEventBind: {
+					backbutton: false,
+					menubutton: false
+				}
+			});
+			mui('.mui-scroll-wrapper').scroll({
+				deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+			});
+			//获得侧滑主窗口webview对象
+			var uids = [];
+			var issueVehicles = {};
+			var _vehicles = {};
+			var main = null;
+			var timerRefresh = null;
+			var search = document.getElementById("search");
+			mui.plusReady(function() {
+				main = plus.webview.currentWebview().opener();
+				// 加载车辆列表			
+				loadVehicle();
+				var vehicleStatus = 0;
+				document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+					vehicleStatus = event.detail.slideNumber;
+//					console.log(vehicleStatus);
+					searchVehicleByStatus(vehicleStatus);
+				});
+			})
+
+			function closeMenu() {
+				mui.fire(main, "menu:swipeleft");
+			}
+			//优化显示出来的侧滑菜单，只需监听该菜单的左滑事件，然后将其关闭即可；在菜单上右滑，不做任何操作；
+			window.addEventListener("swipeleft", closeMenu);
+			mui.menu = closeMenu;
+
+			//更新车辆列表
+			window.addEventListener('refreshVehicle', function(event) {
+				console.log('refresh vehicle list');
+				loadVehicle();
+			});
+
+			var searchVehicle = function(key) {
+				var key = key.toUpperCase();
+				var vehicles = document.querySelectorAll(".vehicle");
+				//				console.log(JSON.stringify(vehicles));
+				[].forEach.call(vehicles, function(vehicle) {
+					if(vehicle.querySelector(".vehicle-name").innerHTML.indexOf(key) > -1) {
+						vehicle.classList.remove("mui-hidden");
+					} else {
+						vehicle.classList.add("mui-hidden");
+					};
+				});
+
+				var customers = document.querySelector(".customer-list").querySelectorAll(".customer");
+				[].forEach.call(customers, function(customer) {
+					var vc = customer.getElementsByTagName("li").length;
+					var vh = customer.querySelectorAll(".mui-hidden").length;
+					if(vc == vh) {
+						customer.classList.add("mui-hidden");
+					} else {
+						customer.classList.remove("mui-hidden");
+					}
+					var name = customer.getAttribute('name');
+					customer.querySelector('.customer-name').innerHTML = name + '(' + (vc - vh) + ')';
+				});
+			};
+
+			var searchVehicleByStatus = function(status) {
+				var vehicles = document.querySelectorAll(".vehicle");
+				//				console.log(JSON.stringify(vehicles));
+				[].forEach.call(vehicles, function(vehicle) {
+					if(status === 0 ||
+						(status === 1 && (vehicle.classList.contains('run') || vehicle.classList.contains('stop'))) ||
+						(status === 2 && vehicle.classList.contains('offline')) ||
+						(status === 3 && vehicle.classList.contains('alert'))
+					) {
+						vehicle.classList.remove("mui-hidden");
+					} else {
+						vehicle.classList.add("mui-hidden");
+					};
+				});
+
+				var customers = document.querySelector(".customer-list").querySelectorAll(".customer");
+				[].forEach.call(customers, function(customer) {
+					var vc = customer.getElementsByTagName("li").length;
+					var vh = customer.querySelectorAll(".mui-hidden").length;
+					if(vc == vh) {
+						customer.classList.add("mui-hidden");
+					} else {
+						customer.classList.remove("mui-hidden");
+					}
+					var name = customer.getAttribute('name');
+					customer.querySelector('.customer-name').innerHTML = name + '(' + (vc - vh) + ')';
+				});
+			};
+
+			search.addEventListener('keyup', function(event) {
+				var key = this.value;
+				//				console.log(key);
+				searchVehicle(key);
+			});
+
+			mui('.mui-search').on('tap', '.mui-icon-clear', function(e) {
+				var key = search.value;
+				//				console.log(key);
+				searchVehicle(key);
+			});
+
+			function dateDiff(d1, d2, mode) { //sDate1和sDate2是2004-10-18格式
+				var diff;
+				if(mode == "dd") {
+					diff = parseInt(Math.abs(d1 - d2) / 1000 / 60 / 60 / 24); //把相差的毫秒数转换为天数
+				} else if(mode == "mm") {
+					diff = parseInt(Math.abs(d1 - d2) / 1000 / 60); //把相差的毫秒数转换为分钟
+				}
+				return diff;
+			}
+
+			function getOnline(vehicle) {
+				var desc = "";
+				var now = new Date();
+				rcv_time = new Date(vehicle.activeGpsData.rcvTime);
+				var m = dateDiff(now, rcv_time, "mm");
+				if(m < 10) {
+					desc = true;
+				} else {
+					desc = false;
+				}
+				return desc;
+			}
+
+			var GetCarIcon = function(vehicle) {
+				var icon = "caricon-offline";
+				if(vehicle.activeGpsData) {
+					if(!getOnline(vehicle)) {
+						icon = "caricon-offline";
+					} else {
+						if(vehicle.activeGpsData.alerts.length > 0) {
+							icon = "caricon-alert";
+						} else {
+							if(vehicle.activeGpsData.status.indexOf(8196) > -1 || vehicle.activeGpsData.speed > 5) {
+								icon = "caricon-run";
+							} else {
+								icon = "caricon-stop";
+							}
+						}
+					}
+				}
+				return icon;
+			}
+			var getStatus = function(vehicle) {
+				var result = '无数据';
+				var status = 'offline';
+				if(vehicle.activeGpsData) {
+					var now = new Date();
+					status = 'alert';
+					if(!getOnline(vehicle)) {
+						var now = new Date();
+						var rcvTime = new Date(vehicle.activeGpsData.rcvTime);
+						var m = dateDiff(now, rcvTime, "mm");
+						if(m < 60) {
+							result = '离线' + parseInt(m) + '分钟';
+						} else if(m >= 60 && m < 1440) {
+							if(m % 60 == 0) {
+								result = '离线' + parseInt(m / 60) + '小时';
+							} else {
+								result = '离线' + parseInt(m / 60) + '小时' + parseInt(m % 60) + '分钟';
+							}
+						} else if(m >= 1440 && m < 129600) {
+							result = '离线' + parseInt(m / 60 / 24) + '天' + parseInt(m / 60 % 24) + '小时';
+						} else if(m >= 129600) {
+							result = '离线90多天';
+						}
+						status = 'offline';
+					} else {
+						if(vehicle.activeGpsData.alerts.length > 0) {
+//							result = getUniAlertsDesc(vehicle.activeGpsData.alerts);
+							status = 'alert';
+						} else {
+							if(vehicle.activeGpsData.status.indexOf(8196) > -1 || vehicle.activeGpsData.speed > 5) {
+								result = vehicle.activeGpsData.speed.toFixed(0) + ' km/h';
+								status = 'run';
+							} else {
+								result = '静止';
+								status = 'stop';
+							}
+						}
+					}
+				}
+				return {
+					status: status,
+					desc: result
+				};
+			}
+
+			var createVehicle = function(vehicle) {
+				li = document.createElement('li');
+				li.className = 'mui-table-view-cell vehicle';
+				//				console.log('createVehicle: ' + JSON.stringify(vehicle))
+				var id = vehicle.did;
+				li.id = id;
+				vehicle.icon = GetCarIcon(vehicle);
+				vehicle.did = vehicle.did;
+				li.setAttribute("plate", vehicle.name);
+				li.setAttribute("did", vehicle.did);
+				li.setAttribute("objectId", vehicle.objectId);
+				var div =
+					'<a class="mui-navigate-right">' +
+					'<div class="{{icon}} status"></div>' +
+					'<div class="mui-media-body">' +
+					'<span class="vehicle-name">{{name}}</span><span class="vehicle-acc"></span><p class="mui-ellipsis mui-pull-right vehicle-status">无数据</p>' +
+					'</div>' +
+					'</a>';
+				div = div.format(vehicle);
+				li.innerHTML = div;
+				return li;
+			};
+
+			var createCustomer = function(customer) {
+				li = document.createElement('li');
+				li.id = 'c' + customer.uid;
+				li.setAttribute("name", customer.name);
+				li.className = 'mui-table-view-cell mui-collapse customer';
+				var div =
+					'<a class="mui-navigate-right customer-name" href="#">{{name}}</a>' +
+					'<div class="mui-collapse-content">' +
+					'<ul class="mui-table-view mui-table-view-chevron vehicle-list"></ul>' +
+					'</div>' +
+					'</a>';
+				div = div.format(customer);
+				li.innerHTML = div;
+				return li;
+			};
+			var activeLi = null;
+			var selectVehicle = function(id, name, did) {
+				var vehicle = {
+					objectId: id,
+					id: did,
+					name: name,
+					did: did
+				};
+				console.log(did);
+				app.setCurrentVehicle(vehicle);
+//				 console.log('获取当前车辆'+ JSON.stringify(app.getCurrentVehicle()) );
+				// 刷新主页标题
+				mainTitlePage = plus.webview.getWebviewById('main');
+				mui.fire(mainTitlePage, 'refreshTitle', null);
+				// 刷新定位页面
+				var mainPage = plus.webview.getWebviewById('main');
+				mui.fire(mainPage, 'refreshVehicle', {id: did});
+				console.log('id是=================='+did);
+			};
+			var bindVehicleClick = function() {
+				console.log("bindVehicleClick");
+				//添加列表项的点击事件
+				mui('.vehicle-list').on('tap', '.vehicle', function(e) {
+					if(activeLi) {
+						activeLi.classList.remove("vehicle-selected");
+					}
+					this.classList.add("vehicle-selected");
+					activeLi = this;
+					var id = this.getAttribute('id');
+					var name = this.getAttribute('plate');
+					var did = this.getAttribute('did');
+					var objectId = this.getAttribute('objectId');
+					selectVehicle(objectId, name, did);
+					// 自动关闭菜单
+					setTimeout(function() {
+						closeMenu();
+					}, 200);
+				});
+			};
+
+			var compare = function(prop) {
+				return function(obj1, obj2) {
+					var val1 = obj1[prop];
+					var val2 = obj2[prop];
+					if(!isNaN(Number(val1)) && !isNaN(Number(val2))) {
+						val1 = Number(val1);
+						val2 = Number(val2);
+					}
+					if(val1 < val2) {
+						return -1;
+					} else if(val1 > val2) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			}
+
+			var checkVehicle = function(device) {
+				//				console.log(JSON.stringify(device));
+				return !!_vehicles[device.did];
+			};
+
+			//加载或者刷新车辆
+			var loadVehicle = function() {
+				var ul = document.querySelector('.customer-list');
+				ul.innerHTML = '';
+				var _customers = [];
+				//				var _vehicles = {};
+				uids = [];
+				app.listCustomer(function(customers) {
+					//					console.log(JSON.stringify(vehicles));
+					//					var uids = [];
+					var liCustomers = [];
+					if(customers.data){
+					for(var i = 0; i < customers.data.length; i++) {
+						uids.push(customers.data[i].uid);
+						var liCustomer = createCustomer(customers.data[i]);
+						//						console.log('liCustomer: ' + liCustomer.outerHTML);
+						liCustomers[customers.data[i].uid.toString()] = liCustomer;
+						ul.appendChild(liCustomer);
+					}
+					app.listVehicle(uids, function(vehicles) {
+						var customer = {};
+						var vehicle = {};
+						var old_name = "";
+						var liCustomer;
+						var vc = 0;
+						var firstVehicle = null;
+						issueVehicles = {};
+						_vehicles = {};
+						for(var i = 0; i < vehicles.data.length; i++) {
+							var liVehicle = createVehicle(vehicles.data[i]);
+							//							console.log('liVehicle: ' + liVehicle.outerHTML);
+							liCustomer = liCustomers[vehicles.data[i].uid.toString()];
+							if(liCustomer) {
+								liCustomer.querySelector('.vehicle-list').appendChild(liVehicle);
+							}
+							issueVehicles[vehicles.data[i].did] = vehicles.data[i];
+							_vehicles[vehicles.data[i].did] = vehicles.data[i];
+						}
+						console.log('_vehicle:' + JSON.stringify(_vehicles));
+						var customers = document.querySelector(".customer-list").querySelectorAll(".customer");
+						[].forEach.call(customers, function(customer) {
+							var vc = customer.getElementsByTagName("li").length;
+							if(vc === 0) {
+								customer.classList.add("mui-hidden");
+							} else {
+								customer.classList.remove("mui-hidden");
+							}
+							var name = customer.getAttribute('name');
+							customer.querySelector('.customer-name').innerHTML = name + '(' + vc + ')';
+						});
+						bindVehicleClick();
+						// 更新定位数据
+						app.updateTime = new Date(0);
+						app.listDevices(uids, function(devices) {
+							devices.data = devices.data.filter(checkVehicle);
+							console.log('filter device: ====================' + JSON.stringify(devices.data));
+							var gpsPage = plus.webview.getWebviewById('tab-webview-subpage-map.html');
+							mui.fire(gpsPage, 'loadVehicle', {
+								vehicles: devices.data
+							});
+							for(var i = 0; i < devices.data.length; i++) {
+								var liVehicle = document.getElementById(devices.data[i].did);
+								if(i === 0) firstVehicle = liVehicle;
+								if(liVehicle) {
+									var ret = getStatus(devices.data[i]);
+									//									liVehicle.querySelector('.vehicle-status').innerHTML = ' (' + getStatusDesc(devices.data[i]) + ') ';
+									liVehicle.querySelector('.vehicle-status').innerHTML = ret.desc;
+									liVehicle.classList.add(ret.status);
+									var iconStatus = liVehicle.querySelector('.status').classList;
+									iconStatus.remove(iconStatus.item[0]);
+									iconStatus.remove(iconStatus.item[0]);
+									var icon = GetCarIcon(devices.data[i]);
+									iconStatus.add(icon);
+									iconStatus.add('status');
+								}
+								// 删除已存在数据的车辆
+								if(issueVehicles[devices.data[i].did]) {
+									delete issueVehicles[devices.data[i].did];
+								}
+							}
+							// 选中第一辆车
+							activeLi = firstVehicle;
+							if(activeLi) {
+								activeLi.classList.add("vehicle-selected");
+								var objectId = activeLi.getAttribute('objectId');
+								var name = activeLi.getAttribute('plate');
+								var did = activeLi.getAttribute('did');
+								selectVehicle(objectId, name, did);
+							}
+							// 处理有问题的车辆绑定
+							var haveIssue = false;
+							for(did in issueVehicles) {
+								//								console.log('问题车辆：' + JSON.stringify(issueVehicles[did]));
+								app.fixVehicle(issueVehicles[did]);
+								haveIssue = true;
+							}
+							if(haveIssue) {
+								refreshVehicle();
+							}
+						});
+					});
+					}
+				});
+			};
+
+			var refreshVehicle = function() {
+				app.listDevices(uids, function(devices) {
+					if(devices.status_code === 0 && devices.data) {
+//						console.log('_vehicle: ' + JSON.stringify(_vehicles));
+//						console.log('device: ' + JSON.stringify(devices.data));
+						devices.data = devices.data.filter(checkVehicle);
+//						console.log('filter device: ' + JSON.stringify(devices.data));
+						var gpsPage = plus.webview.getWebviewById('tab-webview-main.html');
+						mui.fire(gpsPage, 'refreshVehicle', {
+							vehicles: devices.data
+						});
+						for(var i = 0; i < devices.data.length; i++) {
+							var liVehicle = document.getElementById(devices.data[i].did);
+							if(liVehicle) {
+								//							liVehicle.querySelector('.vehicle-status').innerHTML = ' (' + getStatusDesc(devices.data[i]) + ') ';
+								var ret = getStatus(devices.data[i]);
+								liVehicle.querySelector('.vehicle-status').innerHTML = ret.desc;
+								liVehicle.classList.remove('offline');
+								liVehicle.classList.remove('stop');
+								liVehicle.classList.remove('run');
+								liVehicle.classList.remove('alert');
+								liVehicle.classList.add(ret.status);
+							}
+						}
+					}
+				});
+			};
+			if(timerRefresh) {
+				clearInterval(timerRefresh);
+			}
+			timerRefresh = setInterval(function() {
+				var state = app.getState();
+				if(state.token && state.token != "") {
+//					console.log("timer refresh");
+					refreshVehicle();
+				}
+			}, 10000);
+		</script>
+	</body>
+
+</html>

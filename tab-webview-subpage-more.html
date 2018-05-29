@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>更多</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<style>
+			html,
+			body {
+				background-color: #efeff4;
+			}
+			header {
+				background-color: #FFFFFF!important;
+				box-shadow: 0 0 0!important;
+			}
+			.head-img {
+				width: 42px!important;
+				height: 41px!important;
+			}
+			.title{
+				margin: 20px 15px 7px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+			.update {
+				font-style: normal;
+				color: #999999;
+				margin-right: -25px;
+				font-size: 15px
+			}
+			
+			.list_icon {
+				font-size: 18px;
+				padding-right: 15px;
+			}
+			
+			.password {
+				color: #007AFF
+			}
+			.security {
+				color: #1A1A1A
+			}
+			.contact {
+				color: #FFCC33
+			}
+			.message{
+				color: #FF0000
+			}
+			.geofence {
+				color: #EC971F
+			}
+			
+			#circle img{ border-radius:50%}
+			
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">更多设置</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell mui-media">
+					<a id="account" class="mui-navigate-right" href="#">
+						<div id="circle"><img class="mui-media-object mui-pull-left head-img" id="head-img" src="images/default.png"></div>
+						<div class="mui-media-body">
+							<span id="name">未设置</span>
+							<p class='mui-ellipsis'>账号：<span id="mobile">13310000000</span></p>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<div class="title"></div>
+			<ul class="mui-table-view mui-table-view-chevron mui-hidden">
+				<li class="mui-table-view-cell">
+					<a id="password" class="mui-navigate-right"><i class="mui-icon iconfont icon-xiugaimima list_icon password"></i>修改密码</a>
+				</li>
+			</ul>
+			<div class="title"></div>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a id="security" class="mui-navigate-right"><i class="mui-icon iconfont icon-shezhi1 list_icon security"></i>阀值设置</a>
+				</li>
+				<li class="mui-table-view-cell mui-hidden">
+					<a id="contact" class="mui-navigate-right"><i class="mui-icon iconfont icon-lianxiren list_icon contact"></i>紧急联系人</a>
+				</li>
+			</ul>
+			<div class="title"></div>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a id="alertMessage" class="mui-navigate-right"><i class="mui-icon iconfont icon-baojing list_icon message"></i>报警记录</a>
+				</li>
+			</ul>
+			<div class="title"></div>
+			<ul class="mui-table-view mui-table-view-chevron">
+				<li class="mui-table-view-cell">
+					<a id="about" class="mui-navigate-right">关于我们<i id="version" class="mui-pull-right update">V1.0.0</i></a>
+				</li>
+			</ul>
+			<div class="title">
+				
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell" style="text-align: center;">
+					<a id="exit">退出</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script src="js/mui.min.js "></script>
+	<script src="js/immersed.js" ></script>
+	<script type="text/javascript" src="js/app.js" ></script>
+	<script>
+		mui.init();
+		mui.plusReady(function(){
+			var logo = document.getElementById('head-img');
+			var name = document.getElementById('name');
+			var mobile = document.getElementById('mobile');
+			var version = document.getElementById('version');
+			version.innerHTML = plus.runtime.version;
+			// 更新信息显示
+			var loadCustomer = function(){
+				// 设置个人信息
+				var state = app.getState();
+				logo.src = state.logo;
+				name.innerHTML = state.name;
+				mobile.innerHTML = state.account;
+			};
+			
+			loadCustomer();
+			
+			window.addEventListener('refreshInfo', function(event){
+				loadCustomer();
+			});	
+			var password = document.getElementById('password');
+			password.addEventListener('tap', function(){
+				mui.openWindow({
+					url: 'forget_password.html', 
+					id: 'forget_password',
+					waiting:{
+	      				autoShow:false,//自动显示等待框，默认为true);
+	      			}
+				});
+			},false);
+			//阀值设置页面
+			var deviceSetAlertPage = mui.preload({
+				'id':'device-set',
+				'url':'device-set.html'
+			})
+			var deviceSetBtn = document.getElementById('security');
+			deviceSetBtn.addEventListener('tap', function(event){
+				mui.fire(deviceSetAlertPage, 'show', null);
+				deviceSetAlertPage.show('pop-in');
+			});
+			//报警消息页面
+			var alertMessagePage = mui.preload({
+				'id':'alert-real-list',
+				'url':'alert-real-list.html'
+			})
+			var alertMessageBtn = document.getElementById('alertMessage');
+			alertMessageBtn.addEventListener('tap', function(event){
+				mui.fire(alertMessagePage, 'refreshAlertList', null);
+				alertMessagePage.show('pop-in');
+			});
+			//关于我们的页面
+			var about = document.getElementById('about');
+			about.addEventListener('tap', function(){
+				mui.openWindow({
+					url: 'about.html', 
+					id: 'about',
+					waiting:{
+	      				autoShow:false,//自动显示等待框，默认为true);
+	      			}
+				});
+			},false);			
+			
+			//退出操作******************
+			document.getElementById('exit').addEventListener('tap', function() {
+				if (mui.os.ios) {
+					app.setState({});
+					app.updateTime = new Date(0);
+//					mui.openWindow({
+//						url: 'login.html',
+//						id: 'login',
+//						show: {
+//							aniShow: 'pop-in'
+//						},
+//						waiting: {
+//							autoShow: false
+//						}
+//					});
+					plus.webview.getLaunchWebview().show("pop-in");
+					return;
+				}
+				var btnArray = [{
+					title: "注销当前账号"
+				}, {
+					title: "直接关闭应用"
+				}];
+				plus.nativeUI.actionSheet({
+					cancel: "取消",
+					buttons: btnArray
+				}, function(event) {
+					var index = event.index;
+					switch (index) {
+						case 1:
+							//注销账号
+							app.setState({});
+							app.updateTime = new Date(0);
+							/*
+							 * 注意：
+							 * 1、因本示例应用启动页就是登录页面，因此注册成功后，直接显示登录页即可；
+							 * 2、如果真实案例中，启动页不是登录页，则需修改，使用mui.openWindow打开真实的登录页面
+							 */
+							plus.webview.getLaunchWebview().show("pop-in");
+							break;
+						case 2:
+							plus.runtime.quit();
+							break;
+					}
+				});
+			}, false);
+		});
+	</script>
+
+</html>

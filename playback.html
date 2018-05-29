@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link href="css/style.css" rel="stylesheet" />		
+		<link href="css/icons-extra.css" rel="stylesheet" />
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<style>
+			html {
+				height: 100%
+			}
+					
+			body {
+				height: 100%;
+				margin: 0px;
+				padding: 0px
+			}
+			
+			#container {
+				height: 100%;
+				text-align: center;
+				font-size: 14px
+			}
+			#date-select {
+				width: 100%;
+				height: 50px;
+				left: 0px;
+			    right: 0px;
+			    top: 0px;
+			    margin: 0px;
+				background-color: #FFFFFF;
+				padding-top: 10px;
+				padding-left: 10px;
+				padding-right: 10px;
+				text-align: center;
+			}
+			#nav {
+				width: 100%;
+				height: 110px;
+				left: 0px;
+			    right: 0px;
+			    position: fixed;
+			    bottom: 0px;
+			    margin: 0px;
+				background-color: #FFFFFF;
+				padding-top: 4px;
+				padding-left: 10px;
+				padding-right: 10px;
+				display: none;
+			}
+			#addr{
+				font-size: 12px;
+				color: #999999; 
+				padding-top: 2px;
+			}
+			#gps {
+				font-size: 14px;
+				color: #666666;
+			}
+			#gps-time {
+				font-size: 14px;
+				color: #999999;		
+				padding-right: 30px;		
+			}
+			#refresh {
+				width: 60px; 
+				height: 60px;
+				padding-right: 10px;
+				padding-top: 10px;
+			}
+			#line {
+				border-top: solid;
+				border-top-color: #EFEFF4;
+				border-top-width: 1px;
+			}
+			.refresh-text {
+				font-size: 12px;
+				color: #8f8f94
+			}
+			
+			.refresh-icon {
+				color: #466EB0; 
+				font-size: 28px;
+				padding-bottom: 5px;
+			}
+			
+			#play-panel {
+				height: 90px;
+				width: 100%;
+				text-align: center;
+				padding-top: 20px;
+			}	
+			
+			#time-select {
+				width: 100%;
+				height: 35px;
+				left: 0px;
+			    right: 0px;
+			    top: 0px;
+			    margin: 0px;
+				background-color: #FFFFFF;
+				padding-top: 0px;
+				padding-left: 10px;
+				padding-right: 10px;
+				text-align: center;	
+				font-size: 13px;		
+				border-top: solid 1px #F0F0F0;	
+				color: #999;
+			}
+			
+			.time {
+				right: 40px;
+			    left: 40px;
+			    width: auto;
+			    font-size: 14px;
+			    color: #466EB0;
+			    padding-top: 10px;
+			    line-height: 35px;
+			}
+			
+			.end-time-label {
+				padding-left: 30px;
+			}
+			
+			#date-label {
+				margin-top: 20px;
+				font-size: 14px;
+				color: #007aff;
+			}	
+			.date-today {
+				right: 40px;
+			    left: 40px;
+			    display: inline-block;
+			    overflow: hidden;
+			    width: auto;
+			    margin: 0;
+			    font-size: 14px;
+			    color: #466EB0;
+			    padding-top: 10px;
+			}	
+			
+			.arrow {
+				padding-top: 5px;
+				color: #466EB0
+			}
+			
+			header {
+				background-color: #FFFFFF!important;
+				box-shadow: 0 0 0!important;
+			}
+			
+			.day-btn {
+				border-radius: 20px;
+				font-size: 12px;
+				background-color: transparent;
+			}
+			
+			#progress-bar {
+				padding-right: 25px;
+			}
+			
+			#text-bar {
+				padding-right: 25px;
+				padding-bottom: 3px;
+			}
+			
+			#pause {
+				font-size: 12px;
+				padding: 2px 8px;
+				margin-left: 10px;
+				margin-bottom: 5px;
+				visibility: hidden;
+			}
+			
+			.mui-input-range input[type=range] {
+			    height: 1px;
+			    background-color: #CCCCCC
+			}
+			.mui-input-range input[type=range]::-webkit-slider-thumb {
+			    -webkit-appearance: none;
+			    height: 18px;
+			    width: 18px;
+			}
+			
+			#speed {
+				width: 100%;
+			}
+			
+			.progress-text {
+				padding-top: 7px;	
+				padding-right: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">历史轨迹</h1>
+		</header>	
+		<div id="content" class="mui-content">
+			<!--日期选择面板-->
+			<div id="date-select">
+				<button id="Prev" class="mui-pull-left mui-btn mui-btn-primary mui-btn-outlined day-btn">前一天</button>
+				<span id="arrow"><h5 id="date" class="date-today">今天</h5><i class="mui-icon iconfont icon-xia arrow"></i></span>
+				<button id="Next" class="mui-pull-right mui-btn mui-btn-primary mui-btn-outlined day-btn" disabled>后一天</button>
+			</div>
+			<!--时间选择面板-->
+			<div id="time-select" class="mui-row">
+				<span>开始时间: </span><span id="start-time" class="time">00:00</span>
+				<span class="end-time-label">结束时间: </span><span id="end-time" class="time">23:59</span>
+			</div>
+			<!--地图-->
+			<div id="container">
+				<p style="padding-top: 30px;">
+					地图加载中...	
+				</p>
+			</div>
+			<div id="panorama">
+			</div>
+			<!--信息展示面板-->
+			<div id="nav" class="mui-row">
+				<div class="mui-col-sm-10 mui-col-xs-9">
+					<div id="text-bar" class="mui-row mui-input-range">
+						<div class="mui-col-sm-8 mui-col-xs-9 progress-text">
+							<span class="mui-h5">播放进度</span><button id="pause" class="btn mui-btn-blue">暂停</button>
+		            			<span class="mui-h5 mui-pull-right">速度</span>
+						</div>
+						<div class="mui-col-sm-4 mui-col-xs-3">
+		            			<input type="range" id='interval' value="5" min="1" max="10">							
+						</div>
+					</div>
+					<div id="progress-bar" class="mui-row">
+						<p id="progress" class="mui-progressbar"><span></span></p>						
+					</div>
+					<div class="mui-row">
+						<span id="gps"></span><span id="gps-time" class="mui-pull-right"></span>
+					</div>
+					<div class="mui-row">
+						<p id="addr"></p>
+					</div>
+				</div>
+				<div class="mui-col-sm-2 mui-col-xs-3">
+					<div id="play-panel">
+						<span id="play" class="mui-icon iconfont icon-play-copy refresh-icon"></span>
+						<div class="refresh-text">播放轨迹</div>			
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	<script src="js/mui.min.js "></script>
+	<script src="js/immersed.js" ></script>
+	<script src="js/wistorm/define.js"></script>
+	<script src="js/wistorm/wistorm.js"></script>
+	<script src="js/wistorm/md5.js"></script>
+	<script src="js/app.js"></script>		
+	<!--<script src="js/map.js" type="text/javascript"></script>-->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=647127add68dd0a3ed1051fd68e78900"></script>	
+	<script src="js/mapjs/global.js" type="text/javascript"></script>
+	<script src="js/mapjs/define.js" type="text/javascript"></script>
+	<script src="js/mapjs/bmap.js" type="text/javascript"></script>
+	<script src="js/mapjs/wisemap.js" type="text/javascript"></script>	
+	<script>
+		var currentVehicle = app.getCurrentVehicle();
+		var gps = document.getElementById('gps');
+		var gpsTime = document.getElementById('gps-time');
+		var addr = document.getElementById('addr');
+		var title = document.getElementById("title");
+		var progressbar = mui('#progress-bar').progressbar();	
+		var timerPlayback = null;
+		var gpsDatas = null;
+		var _play = false;
+		var _pause = false;
+		var _interval = 200;
+		var p = 0;
+		mui.init({
+			swipeBack:false //启用右滑关闭功能
+		});
+		var toggleNav = function(show) {
+			var n = document.getElementById('nav');
+			var t = document.getElementById('container');
+			n.style.display = show ? 'block': 'none';
+			t.style.height = show ? (document.body.clientHeight - 240 - immersed) + 'px': (document.body.clientHeight - 130 - immersed) + 'px';	
+		};
+		mui.plusReady(function() {
+			var PrevButton = document.getElementById('Prev'); 
+			var NextButton = document.getElementById('Next');
+			var dateBox = document.getElementById('date');
+			var startTimeBox = document.getElementById('start-time');
+			var endTimeBox = document.getElementById('end-time');
+			var weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+			var selectDay = new Date();
+			var today = new Date();
+			var minDate = new Date();
+			var _first = true;
+			var _startTime = '00:00';
+			var _endTime = '23:59';
+			minDate = new Date(minDate.setMonth(minDate.getMonth()-1));
+			var setDate = function(date){
+//				console.log(date);
+				if(_play){
+					stop(true);
+				}
+				dateBox.innerHTML = date.format("MM-dd") == today.format("MM-dd") ? '今天': weekDay[date.getDay()] + ' ' + date.format("MM-dd");	
+				PrevButton.disabled = selectDay < minDate;
+				NextButton.disabled = selectDay >= today;
+				selectDay = date;
+				clearTime();
+				loadGpsData(selectDay);
+			};
+			var clearTime = function(){
+				_startTime = '00:00';
+				_endTime = '23:59';
+				startTimeBox.innerHTML = _startTime;
+				endTimeBox.innerHTML = _endTime;
+			};
+			PrevButton.addEventListener('tap', function(event){
+				setDate(new Date(selectDay.setDate(selectDay.getDate()-1)));
+			});
+			NextButton.addEventListener('tap', function(event){
+				setDate(new Date(selectDay.setDate(selectDay.getDate()+1)));
+			});				
+			var dateButton = document.getElementById('arrow');
+			dateButton.addEventListener('tap', function(event) {
+				var dDate = new Date();
+				plus.nativeUI.pickDate(function(e) {
+					var d = e.date;
+					setDate(d);
+				}, function(e) {
+				}, {
+					title: "请选择日期",
+					date: dDate,
+					minDate: minDate,
+					maxDate: today
+				});
+			});	
+			startTimeBox.addEventListener('tap', function(event) {
+				var dDate = new Date();
+				dDate.setHours(0);
+				dDate.setMinutes(0);
+				dDate.setSeconds(0);
+				var _this = this;
+				plus.nativeUI.pickTime(function(e) {
+					var d = e.date;
+					_startTime = d.format('hh:mm');
+					_this.innerHTML = _startTime;
+				}, function(e) {
+				}, {
+					title: "开始时间",
+					time: dDate
+				});
+			});
+			endTimeBox.addEventListener('tap', function(event) {
+				var dDate = new Date();
+				dDate.setHours(23);
+				dDate.setMinutes(59);
+				dDate.setSeconds(59);			
+				var _this = this;
+				plus.nativeUI.pickTime(function(e) {
+					var d = e.date;
+					_endTime = d.format('hh:mm');
+					_this.innerHTML = _endTime;
+					loadGpsData(selectDay);
+				}, function(e) {
+				}, {
+					title: "结束时间",
+					time: dDate
+				});
+			});
+			var range = document.getElementById('interval');
+			range.addEventListener('change', function(event) {
+				_interval = parseInt(1000 / parseInt(this.value));
+			});
+			var playButton = document.getElementById('play');
+			var pauseButton = document.getElementById('pause');
+			playButton.addEventListener('tap', function(event){
+				if(_play){
+					stop(true);			
+				}else{
+					if(_pause){
+						progressbar.setProgress(0);	
+						p = 0;
+					}
+					setPlayButton(true);
+					setPauseButton(false);
+					playback();					
+				}
+			});
+			
+			pauseButton.addEventListener('tap', function(event){
+				setPauseButton(true);
+				setPlayButton(false);
+				clearTimeout(timerPlayback);
+			});
+			
+			window.addEventListener('refreshGps', function(event){
+				console.log('refresh');
+				title.innerHTML = event.detail.name;
+//				wimap.deleteVehicle(currentVehicle.did);
+				currentVehicle = app.getCurrentVehicle();
+				wimap.clearVehicle();
+				currentVehicle.id = event.detail.id;
+				currentVehicle.name = event.detail.name;
+//				currentVehicle = {
+//					id: event.detail.id,
+//					name: event.detail.name
+//				};
+				app.setCurrentVehicle(currentVehicle);
+				loadGpsData(today);
+				
+			});
+			
+			var showLocation = function(vehicle, address, near, fullAddr) {
+				if(_play || _first){
+					var _address = near == '' ? fullAddr: fullAddr + ", " + near + '附近';
+					addr.innerHTML = _address;		
+					_first = false;
+				}
+			};	
+			
+			var stop = function(clear){
+				clearTimeout(timerPlayback);
+				setPlayButton(false);
+				setPauseButton(true);
+				p = 0;			
+				if(clear){
+					progressbar.setProgress(0);
+					gps.innerHTML = '';
+					gpsTime.innerHTML = '';
+					addr.innerHTML = '';	
+				}
+			}
+			
+			var playback = function(){
+				timerPlayback = setTimeout(function(){
+					if(!_play || p == gpsDatas.length){
+						stop(false);		
+						return;
+					}
+					vehicle = {
+						did: currentVehicle.id,
+						vehicleName: currentVehicle.name,
+						activeGpsData: gpsDatas[p]
+					};
+					wimap.updateVehicle(vehicle, true, false, false, '#FF0000', 3, true);
+					setGpsInfo(p, vehicle);
+					p++;
+					playback();
+				}, _interval);
+			};
+			
+			var setPlayButton = function(play){
+				_play = play;
+				if(_play){
+					playButton.classList.remove("icon-play-copy");
+					playButton.classList.add("icon-stop1");
+				}else{
+					playButton.classList.remove("icon-stop1");
+					playButton.classList.add("icon-play-copy");					
+				}
+			};
+			
+			var setPauseButton = function(pause){
+				_pause = !pause;
+				pauseButton.style.visibility = pause ? 'hidden': 'visible';	
+			};
+			
+			// 设置播放进度
+			var setGpsInfo = function(n, vehicle){
+				var desc = getStatusDesc(vehicle, true) + ' ' + parseInt(vehicle.activeGpsData.speed) + 'km/h';
+				var time = new Date(vehicle.activeGpsData.gpsTime).format("hh:mm:ss");
+				var percent = parseInt((n+1) / gpsDatas.length * 100);
+//				console.log(percent);
+				progressbar.setProgress(percent);
+				gps.innerHTML = desc;
+				gpsTime.innerHTML = time;
+				setLocation2(0, vehicle.activeGpsData.lon, vehicle.activeGpsData.lat, vehicle, showLocation);
+			};
+			
+			// 加载Gps数据
+			var loadGpsData = function(day){
+				_first = true;
+				var startTime = day.format("yyyy-MM-dd " + _startTime);
+				var endTime = day.format("yyyy-MM-dd " + _endTime);
+				plus.nativeUI.showWaiting('正在加载，请耐心等候...');
+				// 画轨迹线
+				var vehicle = {
+					obj_id: currentVehicle.id
+				};
+//				wimap.deleteVehicle(vehicle);
+				// 删除之前的轨迹
+				wimap.removeTrackLine(vehicle);
+				app.listGpsData(currentVehicle.id, startTime, endTime, function(obj){
+					console.log(obj);
+					if(obj.status_code == 0 && obj.total > 0){
+						gpsDatas = obj.data;
+						// 添加车辆
+						var vehicles = [{
+							did: currentVehicle.id,
+							vehicleName: currentVehicle.name,
+							activeGpsData: gpsDatas[0]
+						}];
+						console.log(JSON.stringify(vehicles));
+						wimap.addVehicles(vehicles, false, true);
+						// 画新的轨迹
+						wimap.addTrackLine(vehicle, gpsDatas, '#0000FF', 4, true);
+						// 显示第一个定位
+						vehicle = {
+							did: currentVehicle.id,
+							vehicleName: currentVehicle.name,
+							activeGpsData: gpsDatas[0]
+						};
+						console.log(JSON.stringify(vehicle));
+						setGpsInfo(0, vehicle);
+						// 显示回放面板
+						toggleNav(true);
+					}else{
+						plus.nativeUI.toast('车辆无行驶数据');
+						toggleNav(false);
+					}
+					plus.nativeUI.closeWaiting();
+				});
+			};
+			var old_back = mui.back;
+			mui.back = function(){
+				stop(true);
+				toggleNav(false);	
+			    	old_back();
+			};
+			toggleNav(false);	
+		});	
+		var wimap;
+		var cp = {
+			lon: 113.912513,
+			lat: 22.5866633
+		};
+		var panorama_map = 'panorama';
+		var opt =  {
+		    		traffic: true,
+		    		panorama: true,
+		    		trace: false,
+		    		myPos: false,
+		    		refresh: false,
+		    		lock: {show: false, stat: false},
+		    		stand: {show: false, stat: false}
+		    }
+		wimap = new wiseMap(MAP_TYPE_BAIDU, document.getElementById('container'), cp, 15, opt, panorama_map);
+		wimap.map.addEventListener('click', function() {
+			console.log("mapClick");
+		});
+		toggleNav(true);
+	</script>
+
+</html>

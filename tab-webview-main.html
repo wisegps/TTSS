@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>运输监测</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/style.css" />
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<style>
+			header {
+				box-sizing: content-box;
+				/*background-color: #007Aff!important;*/
+			}
+			
+			html {
+				height: 100%;
+				width: 100%;
+				background-color: #fff;
+				overflow: hidden;
+			}
+			
+			body {
+				height: 100%;
+				width: 100%;
+				margin: 0px;
+				padding: 0px;
+				overflow: hidden;
+			}
+			
+			#containers {
+				height: 42.5%;
+				width: 100%;
+				text-align: center;
+				font-size: 14px;
+				/*margin-top: 10px;*/
+				position: relative;
+			}
+			
+			#container {
+				height: 100%;
+				width: 100%;
+				text-align: center;
+				font-size: 14px;
+				/*margin-top: 10px;*/
+			}
+			
+			.mui-diagram {
+				height: 42.5%;
+				width: 100%;
+				text-align: center;
+				font-size: 14px;
+				position: relative;
+			}
+			
+			#title {
+				font-size: 18px;
+				font-weight: bold;
+				color: #000;
+			}
+			
+			.mui-badge {
+				margin-left: -5px!important;
+				padding: 4px 4px!important;
+				border-radius: 50%;
+			}
+			/*信息窗口样式*/
+			
+			.info-window {
+				font-size: 13px;
+			}
+			
+			.info-window .mui-row {
+				line-height: 20px;
+				text-align: left;
+			}
+			
+			.info-window h5 {
+				color: #333333;
+				line-height: 25px;
+			}
+			
+			.info-window span {
+				color: #333333;
+			}
+			
+			.info-window .mui-btn {
+				margin-top: 10px;
+				margin-right: 10px;
+				padding: 3px 10px!important;
+				font-size: 13px;
+			}
+			
+			#title {
+				color: white!important;
+			}
+			
+			.mui-popover {
+				height: 100px;
+				width: 150px;
+			}
+			
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+				font-size: 14px;
+			}
+			
+			.mui-tab-item .mui-badge {
+				margin-left: -5px!important;
+				padding: 4px 4px!important;
+				border-radius: 50%;
+			}
+			
+			.mui-bar-nav .mui-badge {
+				margin-left: -22px!important;
+				/* padding: 4px 4px!important; */
+				/* border-radius: 50%; */
+				margin-top: 7px;
+			}
+			
+			.mui-slider-group{
+				width: 100%;
+				height: 100%;
+			}
+			
+			.mui-slider-item{
+				width: 100%;
+				height: 100%;
+			}
+			.mui-oil-area-basic {
+				width: 100%;
+				height: 100%;
+				margin: 0 auto;
+				/*padding: 10px;*/
+				position: relative;
+			}
+			
+			#drag-chart {
+				width: 80px;
+				height: 20px;
+				margin: 0 auto;
+				position: absolute;
+				bottom: 0px;
+				left: 40%;
+			}
+			
+			#drag-map {
+				width: 80px;
+				height: 20px;
+				margin: 0 auto;
+				position: absolute;
+				top: 0;
+				left: 40%;
+				z-index: 99;
+			}
+			
+			#location {
+				position: absolute;
+				left: 10px;
+				top: auto;
+				bottom: 10px;
+				z-index: 999;
+				height: 30px;
+				color: #ffffff;
+				background-color: rgba(0, 0, 0, 0.6);
+				border-radius: 5px;
+				padding: 5px 10px;
+				font-size: 10px;
+				display: none;
+			}
+			
+			#date-select {
+				width: 100%;
+				height: 8.5%;
+				left: 0px;
+				right: 0px;
+				top: 0px;
+				margin: 0px;
+				background-color: #FFFFFF;
+				padding-top: 10px;
+				padding-left: 10px;
+				padding-right: 10px;
+				text-align: center;
+			}
+			
+			.arrow {
+				padding-top: 5px;
+				color: #007aff
+			}
+			
+			.day-btn {
+				border-radius: 20px;
+				font-size: 12px;
+				background-color: transparent;
+			}
+			
+			#time-select {
+				width: 100%;
+				height: 6.5%;
+				left: 0px;
+				right: 0px;
+				top: 0px;
+				margin: 0px;
+				background-color: #FFFFFF;
+				padding-top: 0px;
+				padding-left: 10px;
+				padding-right: 10px;
+				text-align: center;
+				font-size: 13px;
+				border-top: solid 1px #F0F0F0;
+				color: #999;
+			}
+			
+			.date-today {
+				right: 40px;
+				left: 40px;
+				display: inline-block;
+				overflow: hidden;
+				width: auto;
+				margin: 0;
+				font-size: 14px;
+				color: #007aff;
+				padding-top: 5px;
+			}
+			
+			.time {
+				right: 40px;
+				left: 40px;
+				width: auto;
+				font-size: 14px;
+				color: #007aff;
+				padding-top: 10px;
+				line-height: 35px;
+			}
+			
+			.end-time-label {
+				padding-left: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a id="vehicle" class="mui-action-menu mui-icon mui-icon-bars mui-pull-left" style="color: #fff"></a>
+			<a id="playback" class="mui-icon iconfont icon-xianshiguiji mui-pull-left" style="color: #fff;display: none;"></a>
+			<!--<a id="alert" class="mui-icon iconfont icon-baojing mui-pull-right" style="color:#FFFFFF"><span id="alertBadge" class="mui-badge"></span></a>-->
+			<a id="more-set" class="mui-icon iconfont icon-More mui-pull-right" style="color: #fff;"></a>
+			<h1 id="title" class="mui-title">设备监测<a id="select" class="mui-icon iconfont icon-xia" style="color: #fff;font-size: 20px;display:none"></a>
+			</h1>
+		</header>
+		<div id="content" class="mui-content">
+			<!--日期选择面板-->
+			<div id="date-select">
+				<button id="Prev" class="mui-pull-left mui-btn mui-btn-primary mui-btn-outlined day-btn">上一天</button>
+				<span id="arrow"><h5 id="date" class="date-today">今天</h5><i class="mui-icon iconfont icon-xia arrow"></i></span>
+				<button id="Next" class="mui-pull-right mui-btn mui-btn-primary mui-btn-outlined day-btn" disabled>下一天</button>
+			</div>
+			<!--时间选择面板-->
+			<div id="time-select" class="mui-row">
+				<span>起始时间: </span><span id="start-time" class="time">00:00</span>
+				<span class="end-time-label">结束时间: </span><span id="end-time" class="time">23:59</span>
+			</div>
+			<div id="diagrams" class="mui-diagram mui-slider">
+				<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+				<div class="mui-slider-group">
+					<div class="mui-slider-item ">
+						<div id="oil-area-basic1" class="mui-oil-area-basic"></div>
+					</div>
+					<div class="mui-slider-item">
+						<div id="oil-area-basic2" class="mui-oil-area-basic"></div>
+					</div>
+					<div class="mui-slider-item ">
+						<div id="oil-area-basic3" class="mui-oil-area-basic"></div>
+					</div>
+				</div>
+				<div class="mui-slider-indicator mui-text-center" style="margin-bottom: 5px;">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+				<div id="drag-chart" class="mui-icon iconfont icon-xiangshangjiantou"></div>
+			</div>
+			<div id="containers">
+				<div id="drag-map" class="mui-icon iconfont icon-xiangxiajiantou"></div>
+				<div id="container">
+					<p>地图加载中...</p>
+				</div>
+				<div id="location">
+					<!--深圳市宝安区留仙大道-->
+				</div>
+			</div>
+		</div>
+		<script src="libs/easymob-webim-sdk/jquery.js"></script>
+		<script src="./js/mui.min.js"></script>
+		<script src="./js/immersed.js"></script>
+		<script src="./js/menu.js"></script>
+		<script src="js/wistorm/define.js"></script>
+		<script src="js/wistorm/wistorm.js"></script>
+		<script src="js/wistorm/md5.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=647127add68dd0a3ed1051fd68e78900"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
+		<script src="js/mapjs/define.js" type="text/javascript"></script>
+		<script src="js/mapjs/bmap.js" type="text/javascript"></script>
+		<script src="js/mapjs/global.js" type="text/javascript"></script>
+		<script src="js/mapjs/wisemap.js" type="text/javascript"></script>
+		<script src="js/echarts.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			//mui初始化
+			mui.init();
+			var addr = document.getElementById('location');
+			var currentVehicle = app.getCurrentVehicle();
+			var markPoint;
+			var marker;
+			var infoWindow;
+			var statChart;
+			var shockAreaChart;
+			var slopeAreaChart;
+			var tempAreaChart;
+			var address;
+			var isAddr = true;
+			var map = new BMap.Map("container");
+			mui.plusReady(function() {
+				var PrevButton = document.getElementById('Prev');
+				var NextButton = document.getElementById('Next');
+				var dateBox = document.getElementById('date');
+				var startTimeBox = document.getElementById('start-time');
+				var endTimeBox = document.getElementById('end-time');
+				var title = document.getElementById('title');
+//				shockAreaChart = document.getElementById('oil-area-basic1');
+				//坐标轴刻度最小、大值
+				var yAxisValue = 0.01;
+				var weekDay = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+				var selectDay = new Date();
+				var today = new Date();
+				var minDate = new Date();
+				var _first = true;
+				var _startTime = '00:00';
+				var _endTime = '23:59';
+				//获得slider插件对象
+				var gallery = mui('.mui-slider');
+				gallery.slider({
+					interval: 0 //自动轮播周期，若为0则不自动播放，默认为0；
+				});
+				var item2Show = false;
+				var	item3Show = false; //子选项卡是否显示标志
+//				document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+//					if(event.detail.slideNumber === 1 && !item2Show) {
+////						sopleAreaChart = document.getElementById("oil-area-basic2");
+//						//改变标志位，下次直接显示
+//						item2Show = true;
+//					} else if(event.detail.slideNumber === 2 && !item3Show) {
+////						tempAreaChart = document.getElementById("oil-area-basic3");
+//						//改变标志位，下次直接显示
+//						item3Show = true;
+//					}
+//				});
+				//刷新标题名
+				window.addEventListener('refreshTitle', function(event) {
+					var currentVehcicle = app.getCurrentVehicle();
+					if(currentVehcicle) {
+						title.innerHTML = currentVehcicle.name;
+					}
+				});
+				minDate = new Date(minDate.setFullYear(1979, 01, 01));
+				var setDate = function(date) {
+					dateBox.innerHTML = date.format("MM-dd") == today.format("MM-dd") ? '今天' : weekDay[date.getDay()] + ' ' + date.format("MM-dd");
+					PrevButton.disabled = selectDay < minDate;
+					NextButton.disabled = selectDay >= today;
+					selectDay = date;
+					loadGpsData(selectDay);
+					clearTime();
+				};
+				var clearTime = function() {
+					_startTime = '00:00';
+					_endTime = '23:59';
+					startTimeBox.innerHTML = _startTime;
+					endTimeBox.innerHTML = _endTime;
+				};
+				PrevButton.addEventListener('tap', function(event) {
+					setDate(new Date(selectDay.setDate(selectDay.getDate() - 1)));
+				});
+				NextButton.addEventListener('tap', function(event) {
+					setDate(new Date(selectDay.setDate(selectDay.getDate() + 1)));
+				});
+				var dateButton = document.getElementById('arrow');
+				dateButton.addEventListener('tap', function(event) {
+					var dDate = new Date();
+					plus.nativeUI.pickDate(function(e) {
+						var d = e.date;
+						setDate(d);
+					}, function(e) {}, {
+						title: "选择日期",
+						date: dDate,
+						minDate: minDate,
+						maxDate: today
+					});
+				});
+				startTimeBox.addEventListener('tap', function(event) {
+					var dDate = new Date();
+					dDate.setHours(0);
+					dDate.setMinutes(0);
+					dDate.setSeconds(0);
+					var _this = this;
+					plus.nativeUI.pickTime(function(e) {
+						var d = e.date;
+						_startTime = d.format('hh:mm');
+						_this.innerHTML = _startTime;
+					}, function(e) {}, {
+						title: "开始时间",
+						time: dDate
+					});
+				});
+				endTimeBox.addEventListener('tap', function(event) {
+					var dDate = new Date();
+					dDate.setHours(23);
+					dDate.setMinutes(59);
+					dDate.setSeconds(59);
+					var _this = this;
+					plus.nativeUI.pickTime(function(e) {
+						var d = e.date;
+						_endTime = d.format('hh:mm');
+						_this.innerHTML = _endTime;
+						loadGpsData(selectDay);
+					}, function(e) {}, {
+						title: "结束时间",
+						time: dDate
+					});
+				});
+				//初始化刷新页面
+				window.addEventListener('refreshVehicle', function(event) {
+					currentVehicle = app.getCurrentVehicle();
+					loadGpsData(today);
+					//					setDate(today);
+				});
+				//处理js时间转化的方法
+				function NewDate(str) {
+					var date = new Date();
+					var str_before = str.split('T')[0]; //获取年月日
+					var str_after = str.split('T')[1]; //获取时分秒
+					var years = str_before.split('-')[0]; //分别截取得到年月日
+					var months = str_before.split('-')[1] - 1;
+					var days = str_before.split('-')[2];
+					var hours = str_after.split(':')[0];
+					var mins = str_after.split(':')[1];
+					var seces = str_after.split(':')[2].replace("Z", "");
+					var secs = seces.split('.')[0];
+					var smsecs = seces.split('.')[1];
+					date.setUTCFullYear(years, months, days);
+					date.setUTCHours(hours, mins, secs, smsecs);
+					return date;
+				}
+
+				// 加载Gps数据
+				var loadGpsData = function(day) {
+					_first = true;
+					var startTime = day.format("yyyy-MM-dd " + _startTime);
+					var endTime = day.format("yyyy-MM-dd " + _endTime);
+					var shock_quantity_x = [];
+					var shock_quantity_y = [];
+					var shock_quantity_z = [];
+					var slope_angle_x = [];
+					var slope_angle_y = [];
+					var shockTime = [];
+					var gpsTime = [];
+					plus.nativeUI.showWaiting('正在加载，请耐心等候...');
+					//					console.log('获取当前车辆'+ JSON.stringify(app.getCurrentVehicle()) );
+					//					console.log(currentVehicle.id);
+					if(currentVehicle) {
+						app.listGpsData(currentVehicle.id, startTime, endTime, function(obj) {
+							console.log('定位数据==============' + JSON.stringify(obj));
+							if(obj.status_code == 0) {
+								app.deviceSxData(currentVehicle.id, startTime, endTime, function(data) {
+									console.log('冲击量数据============' + JSON.stringify(data));
+									for(var i = 0; i < obj.data.length; i++) {
+										gpsTime[i] = NewDate(obj.data[i].gpsTime).format('yyyy/MM/dd hh:mm:ss');
+									}
+									showDevicePlayback(obj, data);
+									for(var i = 0; i < data.data.length; i++) {
+										shock_quantity_x[i] = parseFloat(data.data[i].data.shock_quantity_x).toFixed(2);
+										shock_quantity_y[i] = parseFloat(data.data[i].data.shock_quantity_y).toFixed(2);
+										shock_quantity_z[i] = parseFloat(data.data[i].data.shock_quantity_z).toFixed(2);
+										slope_angle_x[i] = parseFloat(data.data[i].data.slope_angle_x).toFixed(2);
+										slope_angle_y[i] = parseFloat(data.data[i].data.slope_angle_y).toFixed(2);
+										shockTime[i] = NewDate(data.data[i].getTime).format('yyyy/MM/dd hh:mm:ss');
+									}
+									digaramShock(shock_quantity_x, shock_quantity_y, shock_quantity_z, shockTime, obj, data, gpsTime);
+									digaramSlope(slope_angle_x, slope_angle_y, shockTime, obj, data, gpsTime);
+								});
+							} else {
+								plus.nativeUI.toast('车辆无行驶数据');
+							}
+							plus.nativeUI.closeWaiting();
+						});
+					}
+				};
+				//冲击加速度坐标曲线图
+				var digaramShock = function(shock_quantity_x, shock_quantity_y, shock_quantity_z, shockTime, obj, data, gpsTime) {
+					var shockArea = document.getElementById("oil-area-basic1");
+					shockAreaChart = echarts.init(shockArea);
+					if(data.data.length == 0) {
+						map.clearOverlays();
+					}
+					optionArea = null;
+					optionArea = {
+						title: {
+							text: '',
+							textStyle: {
+								fontSize: '12px'
+							}
+						},
+						grid:{
+							left:'18%',
+							bottom:'50px'
+						},
+						tooltip: {
+							trigger: 'axis',
+							axisPointer: {
+								type: 'cross',
+								label: {
+									backgroundColor: '#6a7985'
+								}
+							},
+							triggerOn: 'click',
+							position: function(point, params, dom, rect, size) {
+								tiggerOnChick(params, gpsTime, obj);
+							}
+						},
+						legend: {
+							data: ['冲击加速度X', '冲击加速度Y', '冲击加速度Z']
+						},
+						xAxis: {
+							type: 'category',
+							boundaryGap: false,
+							position: 'bottom',
+							data: shockTime
+						},
+						yAxis: {
+							name: '(g)',
+							type: 'value',
+							min: function(value) {
+								   	return value.min - yAxisValue;
+							},
+							max:function(value) {
+								    return value.max + yAxisValue;
+							}
+						},
+						dataZoom: [{
+							show: true,
+							type: 'inside',
+							zoomOnMouseWheel: true,
+							y: '90%',
+							start: 95,
+							end: 100
+						}],
+						series: [{
+							name: '冲击加速度X',
+							data: shock_quantity_x,
+							type: 'line',
+							smooth: true,
+						}, {
+							name: '冲击加速度Y',
+							data: shock_quantity_y,
+							type: 'line',
+							smooth: true,
+						}, {
+							name: '冲击加速度Z',
+							data: shock_quantity_z,
+							type: 'line',
+							smooth: true,
+						}]
+					};
+					if(optionArea && typeof optionArea === "object") {
+						shockAreaChart.setOption(optionArea, true);
+					}
+				}
+				//温度坐标曲线图
+				var digaramTemp = function(temp, shockTime, obj, data, gpsTime) {
+					var tempArea = document.getElementById("oil-area-basic3");
+					tempAreaChart = echarts.init(tempArea);
+					if(data.data.length == 0) {
+						map.clearOverlays();
+					}
+					optionArea = null;
+					optionArea = {
+						title: {
+							text: '',
+							textStyle: {
+								fontSize: '12px'
+							}
+						},
+						grid:{
+							left:'18%',
+							bottom:'50px'
+						},
+						tooltip: {
+							trigger: 'axis',
+							axisPointer: {
+								type: 'cross',
+								label: {
+									backgroundColor: '#6a7985'
+								}
+							},
+							triggerOn: 'click',
+							position: function(point, params, dom, rect, size) {
+								tiggerOnChick(params, gpsTime, obj);
+							}
+						},
+						legend: {
+							data: ['温度']
+						},
+						xAxis: {
+							type: 'category',
+							boundaryGap: false,
+							position: 'bottom',
+							data: shockTime
+						},
+						yAxis: {
+							name: '℃',
+							type: 'value',
+							min: function(value) {
+								   	return value.min - yAxisValue;
+							},
+							max:function(value) {
+								    return value.max + yAxisValue;
+							}
+						},
+						dataZoom: [{
+							show: true,
+							type: 'inside',
+							zoomOnMouseWheel: true,
+							y: '90%',
+							start: 95,
+							end: 100
+						}],
+						series: [{
+							name: '温度',
+							data: shock_quantity_x,
+							type: 'line',
+							smooth: true,
+						}]
+					};
+					if(optionArea && typeof optionArea === "object") {
+						tempAreaChart.setOption(optionArea, true);
+					}
+				}
+				//倾角坐标曲线图
+				var digaramSlope = function(slope_angle_x, slope_angle_y, shockTime, obj, data, gpsTime) {
+					var slopeArea = document.getElementById("oil-area-basic2");
+					slopeAreaChart = echarts.init(slopeArea);
+					if(data.data.length == 0) {
+						map.clearOverlays();
+					}
+					optionArea = null;
+					optionArea = {
+						title: {
+							text: '',
+							textStyle: {
+								fontSize: '12px'
+							}
+						},
+						grid:{
+							left:'18%',
+							bottom:'50px'
+						},
+						tooltip: {
+							trigger: 'axis',
+							axisPointer: {
+								type: 'cross',
+								label: {
+									backgroundColor: '#6a7985'
+								}
+							},
+							triggerOn: 'click',
+							position: function(point, params, dom, rect, size) {
+								tiggerOnChick(params, gpsTime, obj);
+							}
+						},
+						legend: {
+							data: ['倾角X', '倾角Y']
+						},
+						xAxis: {
+							type: 'category',
+							boundaryGap: false,
+							position: 'bottom',
+							data: shockTime
+						},
+						yAxis: {
+							name: '(°)',
+							type: 'value',
+							min: function(value) {
+								   	return value.min - 0.5;
+							},
+							max:function(value) {
+								    return value.max + 0.5;
+							}
+						},
+						dataZoom: [{
+							show: true,
+							type: 'inside',
+							zoomOnMouseWheel: true,
+							y: '90%',
+							start: 95,
+							end: 100
+						}],
+						series: [{
+							name: '倾角X',
+							data: slope_angle_x,
+							type: 'line',
+							smooth: true,
+						}, {
+							name: '倾角Y',
+							data: slope_angle_y,
+							type: 'line',
+							smooth: true,
+						}]
+					};
+					if(optionArea && typeof optionArea === "object") {
+						slopeAreaChart.setOption(optionArea, true);
+					}
+				}
+				var _index = 0;
+				var tiggerOnChick = function(params, gpsTime, obj) {
+					var getTimes = params[0].axisValue;
+					var lon = 0;
+					var lat = 0;
+					var gpsTimee;
+					getTimee = new Date(getTimes).getTime();
+					var preTime, nextTime;
+					for(var i = 0; i < gpsTime.length; i++) {
+						gpsTimee = new Date(gpsTime[i]).getTime();
+						if(gpsTimee == getTimee) {
+							_index = i;
+							break;
+						} else if(gpsTimee > getTimee) {
+							if(i > 0) {
+								preTime = new Date(gpsTime[i - 1]).getTime();
+								nextTime = gpsTimee;
+								_index = i;
+							} else {
+								_index = i;
+							}
+							break;
+						}
+						if(preTime && nextTime) {
+							if(getTime - preTime < nextTime - getTimee) {
+								_index = _index - 1;
+							}
+						}
+					}
+					lon = obj.data[_index].lon;
+					lat = obj.data[_index].lat;
+					markPoint = new BMap.Point(lon, lat);
+					locationDirection(markPoint);
+					opts = {
+						width: 100, // 信息窗口宽度
+						height: 180, // 信息窗口高度
+						title: "设备信息", // 信息窗口标题
+						enableMessage: true //设置允许信息窗发送短息
+					};
+					var gpsTimes = new Date(obj.data[_index].gpsTime).format("yyyy-MM-dd hh:mm:ss");
+					var rcvTimes = new Date(obj.data[_index].rcvTime).format("yyyy-MM-dd hh:mm:ss");
+					var direct = getDirectDesc(obj.data[_index].direct);
+					var content = '' +
+						'<div class="info-window">' +
+						'<div class="mui-row">' +
+						'<span>设备编号: ' + currentVehicle.id + '</span>' +
+						'</div>' +
+						'<div class="mui-row">' +
+						'<span>接收时间: ' + rcvTimes + '</span>' +
+						'</div>' +
+						'<div class="mui-row">' +
+						'<span>定位时间: ' + gpsTimes + '</span>' +
+						'</div>' +
+						'<div class="mui-row">' +
+						'<span>速度: ' + obj.data[_index].speed.toFixed(0) + ' km/h</span>' +
+						'</div>' +
+						'<div class="mui-row">' +
+						'<span>方向: ' + direct + '</span>' +
+						'</div>' +
+						'</div>';
+					if(marker) {
+						map.removeOverlay(marker);
+					}
+					marker = new BMap.Marker(markPoint);
+					map.addOverlay(marker); // 将标注添加到地图中
+					infoWindow = new BMap.InfoWindow(content, opts); // 创建信息窗口对象 
+					map.openInfoWindow(infoWindow, markPoint); //开启信息窗口
+					marker.addEventListener("click", attribute);
+
+					function attribute() {
+						map.openInfoWindow(infoWindow, markPoint);
+					}
+				}
+				var mapHeight;
+				var chartsHeight;
+				var screenHeight = window.innerHeight - 45;
+				var flag;
+				var htmlChange = function() {
+					var height = $(window).height();
+					$('#content').css({
+						"height": height + "px"
+					});
+				}
+				htmlChange();
+//				statChart = echarts.init(shockAreaChart); //通过DOM id获取到echarts实例
+				$(window).resize(function() {
+					screenHeight = window.innerHeight - 45;
+					htmlChange();
+					shockAreaChart.resize();
+					slopeAreaChart.resize();
+//					tempAreaChart.resize();
+					mapDrapClickFun();
+					//					chartsDrapClickFun();
+				});
+				var mapDrapClickFun = function() {
+					// console.log(1)
+					//					chartsHeight = window.innerHeight;
+					if(flag < 2) {
+						mapHeight = $('#containers')[0].style.height;
+						if(mapHeight && mapHeight != '0px') {
+							mapHeight = parseInt(mapHeight.slice(0, mapHeight.indexOf('px')));
+						} else {
+							mapHeight = screenHeight * 0.425;
+						}
+						if(mapHeight) {
+							if(mapHeight > screenHeight * 0.425) {
+								$('#containers').css('height', screenHeight * 0.425 + 'px');
+								$('#diagrams').css('height', screenHeight * 0.425 + 'px');
+								document.getElementById('drag-chart').style.display = 'block';
+							} else {
+								$('#containers').css('height', 0);
+								$('#diagrams').css('height', screenHeight * 0.85 + 'px');
+								document.getElementById('drag-map').style.display = 'none';
+								addr.style.display = 'none';
+								isAddr = false;
+							}
+						} else {
+							$('#containers').css('height', screenHeight * 0.425 + 'px');
+							$('#diagrams').css('height', screenHeight * 0.425 + 'px');
+						}
+					}
+					shockAreaChart.resize();
+					slopeAreaChart.resize();
+//					tempAreaChart.resize();
+				}
+				var chartsDrapClickFun = function() {
+					// console.log(1)
+					if(flag < 2) {
+						chartsHeight = $('#diagrams')[0].style.height;
+						if(chartsHeight) {
+							chartsHeight = parseInt(chartsHeight.slice(0, chartsHeight.indexOf('px')));
+						} else {
+							chartsHeight = screenHeight * 0.425;
+						}
+						if(chartsHeight) {
+							if(chartsHeight > screenHeight * 0.425) {
+								$('#containers').css('height', screenHeight * 0.425 + 'px');
+								$('#diagrams').css('height', screenHeight * 0.425 + 'px');
+								document.getElementById('drag-map').style.display = 'block';
+								addr.style.display = 'block';
+								addr.innerHTML = address;
+								isAddr = true;
+							} else {
+								$('#diagrams').css('height', 0);
+								$('#containers').css('height', screenHeight * 0.85 + 'px');
+								document.getElementById('drag-chart').style.display = 'none';
+							}
+						} else {
+							$('#diagrams').css('height', screenHeight * 0.425 + 'px');
+							$('#containers').css('height', screenHeight * 0.425 + 'px');
+						}
+					}
+					shockAreaChart.resize();
+					slopeAreaChart.resize();
+//					tempAreaChart.resize();
+				}
+				var startId = setInterval(function() {
+					$('#drag-map').on('tap', mapDrapClickFun);
+					$('#drag-chart').on('tap', chartsDrapClickFun)
+					var moveChange = function(id) {
+						$(id).on('touchstart', function(e) {
+							var positionY = e.originalEvent.targetTouches[0].pageY;
+							var _offset;
+							flag = 0;
+							chartsHeight = $('#diagrams')[0].style.height;
+							if(!chartsHeight) {
+								chartsHeight = window.innerHeight * 0.425;
+							} else {
+								chartsHeight = parseInt(chartsHeight.slice(0, chartsHeight.indexOf('px')))
+							}
+							_offset = chartsHeight - positionY;
+
+							$(this).on('touchmove', function(e) {
+								flag++;
+								//								e.preventDefault();
+								//阻止页面的滑动默认事件
+								document.addEventListener("touchmove", function() {
+									event.preventDefault();
+								}, false);
+								var moveHeight;
+								var oMoveHeight;
+								moveHeight = e.originalEvent.targetTouches[0].pageY + _offset;
+								oMoveHeight = window.innerHeight - moveHeight;
+								if(moveHeight <= 200) {
+									moveHeight = 200;
+									oMoveHeight = window.innerHeight - moveHeight;
+								}
+								oMoveHeight += 'px';
+								moveHeight += 'px';
+								$('#diagrams').css('height', moveHeight);
+								$('#containers').css('height', oMoveHeight);
+								shockAreaChart.resize();
+								slopeAreaChart.resize();
+//								tempAreaChart.resize();
+							})
+						})
+					}
+					moveChange('#drag-map');
+					moveChange('#drag-chart');
+					clearInterval(startId);
+				}, 100)
+
+				var morePage = mui.preload({
+					"id": 'tab-webview-subpage-more',
+					"url": 'tab-webview-subpage-more.html'
+				});
+				//更多页面
+				var moreBtn = document.getElementById('more-set');
+				moreBtn.addEventListener('tap', function(event) {
+					morePage.show("pop-in");
+				});
+				var dataX;
+				var dataY;
+				var dataZ;
+				var polyline;
+				var showDevicePlayback = function(obj, data) {
+					//当没有数据时显示默认位置
+					if(data.data.length == 0){
+						map.centerAndZoom(new BMap.Point(113.983208,22.624648),15);
+						map.enableScrollWheelZoom(true);
+					}
+					// 随机向地图添加25个标注
+					if(polyline) {
+						map.removeOverlay(polyline);
+					}
+					var lat = 0;
+					var lon = 0;
+					var points = [];
+					var point = [];
+					for(var i = 0; i < obj.data.length; i++) {
+						lat = obj.data[i].lat;
+						lon = obj.data[i].lon;
+						points[i] = new BMap.Point(lon, lat);
+					}
+					polyline = new BMap.Polyline(points, {
+						enableEditing: false, //是否启用线编辑，默认为false
+						enableClicking: true, //是否响应点击事件，默认为true
+						strokeWeight: '3', //折线的宽度，以像素为单位
+						strokeOpacity: 0.8, //折线的透明度，取值范围0 - 1
+						strokeColor: "#18a45b" //折线颜色
+					});
+					map.centerAndZoom(points[0], 15);
+					map.addOverlay(polyline);
+				}
+				//地址描述
+				function locationDirection(markPoint) {
+					addr.innerHTML = '';
+					var myGeo = new BMap.Geocoder();
+					// 根据坐标得到地址描述   
+					//					var point = new BMap.Point(markPoint);
+					myGeo.getLocation(markPoint, function(result) {
+						if(result) {
+							var di = 2000;
+							var shortpoint = -1;
+							for(i = 0; i < result.surroundingPois.length; i++) {
+								var d = map.getDistance(result.surroundingPois[i].point, markPoint);
+								if(d < di) {
+									shortpoint = i;
+									di = d;
+								}
+							}
+							var ra = result.addressComponents;
+							if(shortpoint >= 0) {
+								address = ra.city + ra.district + ra.street + ra.streetNumber + '，离' + result.surroundingPois[shortpoint].title + di.toFixed(0) + '米';
+							} else {
+								address = result.address;
+							}
+							if(isAddr == true) {
+								addr.style.display = "block";
+								addr.innerHTML = address;
+							} else {
+								addr.style.display = "none";
+							}
+						}
+					});
+				}
+				var backButtonPress = 0;
+				mui.back = function(event) {
+					console.log(backButtonPress);
+					backButtonPress++;
+					if(backButtonPress > 1) {
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用');
+					}
+					setTimeout(function() {
+						backButtonPress = 0;
+					}, 1000);
+					return false;
+				};
+			});
+		</script>
+	</body>
+
+</html>

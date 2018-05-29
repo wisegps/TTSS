@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/icons-car.css" />
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<style>
+			body, .mui-content {
+				background-color: #efeff4;
+				color: #000;
+			}
+			
+			header {
+				background-color: #fff!important;
+			}
+			header.mui-bar{
+				/*display: none;*/
+			}
+
+			 .title{
+			  	margin: 20px;
+			  }
+			  .title+.content{
+			  	margin: 10px 15px 35px;
+			  	color: #bbb;
+			  	text-indent: 1em;
+			  	font-size: 14px;
+			  	line-height: 24px;
+			  }
+			  .mui-table-view{
+			  	/*margin-bottom: 35px;*/
+			  }
+			  
+			  .mui-table-view-cell {
+			  	font-size: 14px;
+			  }
+			  .mui-table-view-cell.mui-collapse .mui-collapse-content {
+				    /* display: none; */
+				     overflow: visible; 
+				     padding: 0px; 
+				     margin-left: -40px;
+    					padding-right: 10px;
+				}
+				
+				.search input[type=search] {
+					margin-bottom: 0px;
+					font-size: 12px;
+					background-color: #fff;
+				}
+				
+				.mui-search .mui-placeholder {
+					padding-top: 3px;
+					font-size: 13px;
+				}
+				
+				.mui-search.mui-active:before {
+				    margin-top: -20px;
+				}
+				
+				.mui-icon-search:before {
+				    /*padding-right: 90px;*/
+				}
+				
+				.mui-ellipsis {
+					font-size: 12px;
+				}
+
+				.mui-scroll-wrapper {
+					padding-top: 44px;
+				}
+				
+				.vehicle-list, .customer, .vehicle, .customer-list, .customer-name, .vehicle-name, .gpsTime, .status {
+					
+				}
+				
+				.mui-table-view-cell {
+				    background-color: #ffffff;
+				}
+				
+				.mui-input {
+					font-size: 14px;
+				}
+				.mui-input-group {
+					background-color: #fcfcfc;
+					padding-left: 10px;
+				}
+				.mui-input-group:before {
+				    background-color: #fcfcfc; 
+				}
+				
+				.mui-input-group .mui-input-row:after {
+				    background-color: #fcfcfc; 
+				}
+				
+				.mui-input-group:after {
+				    background-color: #fcfcfc; 
+				}
+				
+				.mui-table-view-chevron {
+					background-color: #fcfcfc;
+				}
+				
+				.mui-input-row label {
+				    width: 45%;
+				}
+				
+				.mui-table-view-cell.mui-collapse .mui-table-view .mui-table-view-cell {
+				    /*padding-left: 31px;*/
+				    /*background-position: 31px 100%;*/
+				    background-color: #fcfcfc;
+				}
+				
+				.mui-radio input[type=radio] {
+				    right: 5px;
+				}
+				
+				.mui-input-row label~input, .mui-input-row label~select, .mui-input-row label~textarea {
+				    text-align: right;
+				}
+				
+				.mui-input-row .mui-btn {
+				    font-size: 14px;
+				    padding: 10px 10px;
+				}
+				
+		</style>
+	</head>
+	<body>
+		<header id="header" class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="title">阀值设置</h1>
+		</header>	
+		<div id="content" class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-collapse">设置设备：<span id='vehicle-name'></span></li>
+			</ul>
+			<ul id="params-list" class="mui-table-view">
+				<li id="4" class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">报警阀值</a>
+						<div class="mui-collapse-content">
+							<ul class="mui-table-view">
+								<li class="mui-table-view-cell">
+									<form class="mui-input-group">
+										<div class="mui-input-row">
+											<label>阀值</label>
+											<div class="mui-numbox" data-numbox-step='10' data-numbox-min='40' data-numbox-max='500'>
+												<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+												<input id="speedLimit" class="mui-input-numbox" type="number" value="80" />
+												<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+											</div>
+										</div>
+									</form>
+								</li>
+							</ul>
+						</div>
+					</a>
+				</li>	
+			</ul>
+			<div class="mui-content-padded">
+				<button id='send' class="mui-btn mui-btn-block mui-btn-primary" data-loading-text="设置中...">设置</button>
+			</div>		
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/immersed.js" ></script>
+		<script src="js/mapjs/global.js"></script>
+		<script src="js/wistorm/define.js"></script>
+		<script src="js/wistorm/wistorm.js"></script>
+		<script src="js/wistorm/md5.js"></script>
+		<script src="js/app.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				keyEventBind: {
+//					backbutton: false,
+//					menubutton: false
+				}
+			});
+			var engineSwitch = -1;
+			var setEngineSwitch = function(value){
+				engineSwitch = value;
+			}
+			var standSwitch = -1;
+			var setStandSwitch = function(value){
+				standSwitch = value;
+			}
+			
+			mui.plusReady(function () {	
+				var vehicleName = document.getElementById('vehicle-name');
+				window.addEventListener('show', function(event){
+					console.log('device set page show');
+					var currentVehicle = app.getCurrentVehicle();
+					console.log(JSON.stringify(currentVehicle));
+					if(currentVehicle){
+						vehicleName.innerHTML = currentVehicle.name;
+					}
+				});
+				//获得侧滑主窗口webview对象
+				var state = app.getState();
+				var sendButton = document.getElementById("send");
+				sendButton.addEventListener('tap', function(event){
+					var activeId = document.getElementById('params-list').querySelector('.mui-active').id;
+					var currentVehicle = app.getCurrentVehicle();
+					var cmdType = 0;
+					var params = {};
+					var _this = this;
+					console.log(activeId);
+					switch(activeId){
+						case '4':
+							var speedLimit = document.getElementById('speedLimit');
+							var cmdType = IOT_CMD.SET_PARAM;
+							var params = {
+								'param_id': 0x0055,
+								'param_value': speedLimit.value
+							};							
+							break;
+					}
+					mui(this).button('loading');
+					app.sendCommand(currentVehicle.did, cmdType, params, function(err) {
+						if(err) {
+							plus.nativeUI.toast(err);
+							mui(_this).button('reset');
+							return;
+						}
+						mui(_this).button('reset');
+						plus.nativeUI.toast('指令执行成功');
+					});
+				});				
+			})
+		</script>
+</body>
+
+</html>

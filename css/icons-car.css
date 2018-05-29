@@ -1,0 +1,52 @@
+.caricon-offline {
+	float: left;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+	margin: 0px;
+    line-height: 28px;
+    vertical-align: text-top;
+    background-image: url("../images/objects/normal_offline_0.gif");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;	
+}
+
+.caricon-alert {
+	float: left;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+	margin: 0px;
+    line-height: 28px;
+    vertical-align: text-top;
+    background-image: url("../images/objects/normal_alert_0.gif");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;	
+}
+
+.caricon-stop {
+	float: left;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+	margin: 0px;
+    line-height: 28px;
+    vertical-align: text-top;
+    background-image: url("../images/objects/normal_stop_0.gif");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;	
+}
+
+.caricon-run {
+	float: left;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+	margin: 0px;
+    line-height: 28px;
+    vertical-align: text-top;
+    background-image: url("../images/objects/normal_run_0.gif");
+    background-position: 0px 0px;
+    background-repeat: no-repeat;	
+}
+

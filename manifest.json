@@ -1,0 +1,357 @@
+{
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
+	"id": "H5DB5C608",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "TTS",/*应用名称，程序桌面图标名称*/
+	"version": {
+		"name": "1.1.0",/*应用版本名称*/
+		"code": "1"
+	},
+	"description": "",/*应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "login.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"developer": {
+		"name": "",/*开发者名称*/
+		"email": "",/*开发者邮箱地址*/
+		"url": ""
+	},
+	"permissions": {
+
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"Maps": {
+			"description": "管理地图插件"
+		}
+	},
+	"plus": {
+		"splashscreen": {
+			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"waiting": true
+		},
+		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
+		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
+		"distribute": {
+			"plugins": {
+				"push": {
+					
+				},
+				"maps": {
+					"baidu": {
+						"appkey_ios": "gvCLXAX3YBoM5ctd6HfWnmXK1O7VBTXN",
+						"appkey_android": "ftvXO1llZOHQmRQcG7gBYGY2dbeYZiEq",
+						"appkey": "",
+						"description": ""
+					}
+				},
+				"share": {
+					
+				},
+				"oauth": {
+					
+					
+					
+				}
+			},
+			"apple": {
+				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+				"mobileprovision": "",/*iOS应用打包配置文件*/
+				"password": "",/*iOS应用打包个人证书导入密码*/
+				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "",/*Android应用打包使用的密钥库文件*/
+				"password": "",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "",/*Android应用打包使用密钥库中证书的别名*/
+				"permissions": ["<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>","<uses-permission android:name=\"android.permission.INTERNET\"/>","<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>","<uses-permission android:name=\"android.permission.READ_LOGS\"/>","<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>","<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>","<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>","<uses-feature android:name=\"android.hardware.camera.autofocus\"/>","<uses-feature android:name=\"android.hardware.camera\"/>","<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>","<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>","<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>","<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>","<uses-permission android:name=\"android.permission.CAMERA\"/>"]
+			},
+			"orientation": [
+				"portrait-primary"
+			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"icons": {
+				"ios": {
+					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+					/*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					"iphone": {
+						"normal": "", /*iPhone3/3GS程序图标，分辨率：57x57*/
+						"retina": "", /*iPhone4程序图标，分辨率：114x114*/
+						/*iPhone4S/5/6程序图标，分辨率：120x120*/
+						/*iPhone6 Plus程序图标，分辨率：180x180*/
+						"spotlight-normal": "", /*iPhone3/3GS Spotlight搜索程序图标，分辨率：29x29*/
+						"spotlight-retina": "", /*iPhone4 Spotlight搜索程序图标，分辨率：58x58*/
+						/*iPhone4S/5/6 Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "", /*iPhone4设置页面程序图标，分辨率：29x29*/
+						/*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
+						"app@2x": "unpackage/res/icons/120x120.png",
+						"app@3x": "unpackage/res/icons/180x180.png",
+						"settings@3x": "unpackage/res/icons/87x87.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"spotlight@3x": "unpackage/res/icons/120x120.png",
+						"notification@3x": "unpackage/res/icons/60x60.png",
+						"notification@2x": "unpackage/res/icons/40x40.png"
+					},
+					"ipad": {
+						"normal": "", /*iPad普通屏幕程序图标，分辨率：72x72*/
+						"retina": "", /*iPad高分屏程序图标，分辨率：144x144*/
+						/*iPad iOS7程序图标，分辨率：76x76*/
+						/*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						"spotlight-normal": "", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+						"spotlight-retina": "", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+						/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						/*iPad设置页面程序图标，分辨率：29x29*/
+						"app": "unpackage/res/icons/76x76.png",
+						"app@2x": "unpackage/res/icons/152x152.png",
+						"settings": "unpackage/res/icons/29x29.png",
+						"proapp@2x": "unpackage/res/icons/167x167.png",
+						"spotlight": "unpackage/res/icons/40x40.png",
+						"settings@2x": "unpackage/res/icons/58x58.png",
+						"spotlight@2x": "unpackage/res/icons/80x80.png",
+						"notification": "unpackage/res/icons/20x20.png",
+						"notification@2x": "unpackage/res/icons/40x40.png"
+					},
+					"appstore": "unpackage/res/icons/1024x1024.png"
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
+						"retina35": "unpackage/img/960_640.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "unpackage/img/1136_640.png",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+						"retina47": "unpackage/img/1334_750.png",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+						"retina55": "unpackage/img/2208_1242.png",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+						"retina55l": ""
+					},
+					"ipad": {
+						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						"landscape": "", /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						"portrait7": "", /*iPad iOS7竖屏启动图片，分辨率：768x1024*/
+						"portrait-retina7": "",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": "", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+						"landscape-retina7": ""
+					}
+				},
+				"android": {
+					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "unpackage/img/480_762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "unpackage/img/720_1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "unpackage/img/1080_1882.png"
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"tab-webview-subpage-more.html": {
+				"resources": [],
+				"refer": [
+					"alert-real-list.html",
+					"device-set.html"
+				],
+				"priority": 0
+			},
+			"login.html": {
+				"resources": [],
+				"refer": [
+					"tab-webview-main.html"
+				],
+				"priority": 0
+			},
+			"tab-webview-main.html": {
+				"resources": [],
+				"refer": [
+					"tab-webview-subpage-more.html",
+					"vehicle-list.html"
+				],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"images/cbd.jpg",
+				"images/objects/normal_run_45.gif",
+				"js/mapjs/bmap.js",
+				"js/echarts.js",
+				"font/fontawesome-webfont.ttf",
+				"images/objects/normal_run_135.gif",
+				"js/upload.js",
+				"js/wistorm/md5.js",
+				"images/ad2.png",
+				"images/stand_off.png",
+				"js/wistorm/define.js",
+				"css/icons-car.css",
+				"images/objects/normal_offline_135.gif",
+				"images/bak/panorama_off.png",
+				"images/objects/normal_offline_90.gif",
+				"fonts/mui-icons-extra.ttf",
+				"font/fontawesome-webfont.woff",
+				"js/common.js",
+				"images/objects/normal_alert_315.gif",
+				"forget_password.html",
+				"js/mapjs/markerwithlabel.js",
+				"js/mui.poppicker.js",
+				"css/iconfont.css",
+				"images/60x60.gif",
+				"images/objects/normal_offline_180.gif",
+				"images/person.png",
+				"fonts/iconfont.ttf",
+				"js/city.data.js",
+				"images/objects/normal_run_180.gif",
+				"js/mui.view.js",
+				"tab-webview-subpage-map.html",
+				"js/app.js",
+				"images/objects/normal_run_0.gif",
+				"js/mapjs/wisemap.js",
+				"images/objects/normal_offline_45.gif",
+				"images/objects/normal_alert_135.gif",
+				"fonts/mui.ttf",
+				"js/wistorm/test.js",
+				"js/menu.js",
+				"images/objects/normal_offline_225.gif",
+				"js/city.data-3.js",
+				"images/objects/normal_stop_90.gif",
+				"images/icon.png",
+				"libs/easymob-webim-sdk/jquery.js",
+				"images/objects/normal_run_315.gif",
+				"js/update.js",
+				"js/mapjs/baidu_MarkerClusterer.js",
+				"js/feedback.js",
+				"images/objects/normal_run_225.gif",
+				"images/muwu.jpg",
+				"js/cache.js",
+				"playback.html",
+				"images/power_off.png",
+				"images/panorama.png",
+				"images/Group.jpg",
+				"images/objects/normal_stop_225.gif",
+				"images/weixin.png",
+				"images/objects/normal_stop_135.gif",
+				"images/iconfont-tianjia.png",
+				"js/mapjs/markerclusterer.js",
+				"js/mui.back.5+.js",
+				"images/logo.png",
+				"images/nophoto.jpg",
+				"css/common.css",
+				"images/objects/normal_alert_270.gif",
+				"js/mui.min.js",
+				"js/wistorm/wistorm.js",
+				"images/icon-geofence.png",
+				"images/sinaweibo.png",
+				"about.html",
+				"images/objects/normal_alert_90.gif",
+				"libs/easymob-webim-sdk/jquery-1.11.1.js",
+				"js/mapjs/define.js",
+				"images/locate.png",
+				"js/mui.pullToRefresh.js",
+				"js/mapjs/message_windows.js",
+				"images/objects/normal_stop_0.gif",
+				"images/objects/normal_stop_270.gif",
+				"images/default.png",
+				"images/bak/refresh.png",
+				"images/objects/normal_alert_45.gif",
+				"images/panorama_off.png",
+				"images/objects/normal_alert_225.gif",
+				"css/mui.min.css",
+				"img/logo.png",
+				"images/vicon.png",
+				"js/mui.locker.js",
+				"images/objects/normal_offline_0.gif",
+				"css/feedback.css",
+				"images/objects/normal_alert_0.gif",
+				"js/mui.picker.min.js",
+				"images/zj_logo.png",
+				"images/shuijiao.jpg",
+				"images/bak/default.png",
+				"images/objects/alert.png",
+				"images/traffic_on.png",
+				"js/mapjs/gmap.js",
+				"images/objects/normal_offline_270.gif",
+				"images/objects/run.png",
+				"images/qihoo.png",
+				"images/ad1.jpg",
+				"css/mui.picker.min.css",
+				"images/objects/stop.png",
+				"images/lock_on.png",
+				"js/map.js",
+				"libs/easymob-webim-sdk/easemob.im-1.0.5.js",
+				"js/mui.pullToRefresh.material.js",
+				"images/objects/normal_offline_315.gif",
+				"images/locate_on.png",
+				"images/locate_off.png",
+				"js/mui.enterfocus.js",
+				"js/immersed.js",
+				"images/objects/normal_stop_45.gif",
+				"images/qrcode.png",
+				"images/waiting.gif",
+				"images/myicon.png",
+				"images/stand_on.png",
+				"js/mapjs/convertor.js",
+				"js/core.js",
+				"css/feedback-page.css",
+				"images/user-photo.png",
+				"images/objects/normal_stop_180.gif",
+				"images/objects/normal_run_270.gif",
+				"images/qq.png",
+				"css/icons-extra.css",
+				"images/traffic_off.png",
+				"images/refresh.png",
+				"images/panorama_on.png",
+				"libs/easymob-webim-sdk/json2.js",
+				"images/objects/normal_run_90.gif",
+				"css/mui.poppicker.css",
+				"images/Oval.png",
+				"js/feedback-page.js",
+				"images/login-1.png",
+				"images/bak/traffic_on.png",
+				"images/power.png",
+				"images/objects/normal_alert_180.gif",
+				"images/120x120.png",
+				"images/lock_off.png",
+				"js/mapjs/global.js",
+				"images/bak/panorama_on.png",
+				"libs/easymob-webim-sdk/quickstart.md",
+				"js/mapjs/RichMarker_min.js",
+				"images/objects/normal_stop_315.gif",
+				"css/style.css",
+				"img/alert.png",
+				"css/mui.picker.css",
+				"images/yuantiao.jpg",
+				"css/font-awesome.min.css",
+				"images/bak/traffic_off.png",
+				"libs/easymob-webim-sdk/strophe-custom-2.0.0.js",
+				"images/objects/offline.png",
+				"js/mapjs/baidu_TextIconOverlay.js",
+				"images/cheweishi.png"
+			]
+		}
+	}
+}

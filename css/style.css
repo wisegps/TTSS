@@ -1,0 +1,78 @@
+.ui-page-login,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+header {
+	/*width: 100%;*/
+	height: 44px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	font-size: 20px;
+	text-align: center;
+	line-height: 44px;
+	background: #f0f0f0;
+	z-index: 9999;
+	border-bottom: 1px solid rgba(204,204,204,0.8)!important;
+	-ms-touch-action: none;
+	box-sizing: content-box;
+	background-color: #466eb0!important;
+}
+
+.mui-content{
+	height: 100%;
+	font-size: 16px;
+}
+
+/*.mui-bar-tab .mui-tab-item.mui-active {
+    color: #466eb0;
+}
+
+.mui-btn-blue {
+	background-color: #466eb0;
+	border: 1px solid #466eb0;	
+}
+
+.mui-btn-primary {
+	background-color: #466eb0;
+	border: 1px solid #466eb0;
+}
+
+.mui-btn-danger {
+	background-color: #f94d41;
+	border: 1px solid #f94d41;
+}
+
+a {
+    color: #466eb0;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+    color: #466eb0;
+}
+
+.mui-input-range input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	background: #466EB0;
+}
+
+.mui-btn-outlined.mui-btn-primary {
+    color: #466EB0;
+}
+
+.mui-table-view-radio .mui-table-view-cell .mui-navigate-right:after {
+    color: #466EB0;
+}
+
+.mui-bar .mui-btn-link {
+    color: #466EB0;
+}*/
+
+.mui-btn.mui-disabled, .mui-btn:disabled, button.mui-disabled, button:disabled, input[type="button"].mui-disabled, input[type="button"]:disabled, input[type="reset"].mui-disabled, input[type="reset"]:disabled, input[type="submit"].mui-disabled, input[type="submit"]:disabled {
+    opacity: 0.6;
+   	background-color: #999999;
+    border-color: #999999;
+}
